@@ -10,6 +10,9 @@ public class DeliveryAwsInfraApp {
         DeliveryAwsClusterStack deliveryAwsClusterStack = new DeliveryAwsClusterStack(app,"Cluster",deliveryVpcStack.getVpc());
         deliveryAwsClusterStack.addDependency(deliveryVpcStack);
 
+        DeliveryAwsRdsStack rdsStack = new DeliveryAwsRdsStack(app, "Rds",deliveryVpcStack.getVpc());
+        rdsStack.addDependency(deliveryVpcStack);
+
         DeliveryAwsServiceStack deliveryAwsServiceStack = new DeliveryAwsServiceStack(app,"Service",deliveryAwsClusterStack.getCluster());
         deliveryAwsServiceStack.addDependency(deliveryAwsClusterStack);
         app.synth();
