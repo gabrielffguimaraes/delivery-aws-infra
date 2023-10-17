@@ -17,7 +17,7 @@ public class DeliveryAwsRdsStack extends Stack {
         super(scope, id, props);
 
         CfnParameter senha = CfnParameter.Builder.create(this,"senha")
-                .type("string")
+                .type("String")
                 .description("Senha do database delivery-order")
                 .build();
 
@@ -39,9 +39,10 @@ public class DeliveryAwsRdsStack extends Stack {
                 .instanceType(InstanceType.of(InstanceClass.BURSTABLE2, InstanceSize.MICRO))
                 .multiAz(false)
                 .allocatedStorage(10)
+                .publiclyAccessible(true)
                 .securityGroups(Collections.singletonList(iSecurityGroup))
                 .vpcSubnets(SubnetSelection.builder()
-                        .subnets(vpc.getPrivateSubnets())
+                        .subnets(vpc.getPublicSubnets())
                         .build())
                 .build();
 
